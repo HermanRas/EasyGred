@@ -1,7 +1,15 @@
+<p align="center">
+  <img src="src/EasyGred/Assets/icons/EasyGred-128x128.png" alt="EasyGred logo" width="128" height="128">
+</p>
+
 # EasyGred — Easy Graphix Edit
 
 A small, portable picture editor for **Windows and Linux**, inspired by the simple late-90s paint programs.
 Written from scratch (clean room) in C# / .NET 8 with [Avalonia UI](https://avaloniaui.net/) and SkiaSharp.
+
+**[Download the latest release](https://github.com/HermanRas/EasyGred/releases/latest)** — unzip and run, nothing to install.
+
+![EasyGred editing its own logo on Linux: a selection around the pencil tip and a second layer with yellow brush strokes](docs/screenshot.png)
 
 ## Features
 
@@ -63,6 +71,7 @@ src/EasyGred/          Avalonia desktop app
 tests/EasyGred.Tests/  xUnit tests for the core engine
 packaging/linux/       launcher + optional desktop-entry script shipped with the Linux build
 art/                   source artwork for the icon (not shipped)
+docs/                  README screenshot
 ```
 
 ## Clean-room note
