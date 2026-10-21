@@ -1,0 +1,142 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="using:EasyGred.Controls"
+        x:Class="EasyGred.MainWindow"
+        Title="EasyGred"
+        Width="1120" Height="780" MinWidth="640" MinHeight="420">
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="_New..." InputGesture="Ctrl+N" Click="OnNew" />
+        <MenuItem Header="_Open..." InputGesture="Ctrl+O" Click="OnOpen" />
+        <MenuItem Header="_Save" InputGesture="Ctrl+S" Click="OnSave" />
+        <MenuItem Header="Save _As..." InputGesture="Ctrl+Shift+S" Click="OnSaveAs" />
+        <MenuItem Header="_Export Copy as WebP..." Click="OnExportWebp" />
+        <Separator />
+        <MenuItem Header="E_xit" Click="OnExit" />
+      </MenuItem>
+      <MenuItem Header="_Edit">
+        <MenuItem Header="_Undo" InputGesture="Ctrl+Z" Click="OnUndo" />
+        <MenuItem Header="_Redo" InputGesture="Ctrl+Y" Click="OnRedo" />
+        <Separator />
+        <MenuItem Header="Cu_t" InputGesture="Ctrl+X" Click="OnCut" />
+        <MenuItem Header="_Copy" InputGesture="Ctrl+C" Click="OnCopy" />
+        <MenuItem Header="_Paste" InputGesture="Ctrl+V" Click="OnPaste" />
+        <MenuItem Header="Paste _From File..." Click="OnPasteFromFile" />
+        <Separator />
+        <MenuItem Header="C_lear Selection" InputGesture="Delete" Click="OnDelete" />
+        <MenuItem Header="Select _All" InputGesture="Ctrl+A" Click="OnSelectAll" />
+        <MenuItem Header="_Deselect" InputGesture="Escape" Click="OnDeselect" />
+      </MenuItem>
+      <MenuItem Header="_View">
+        <MenuItem Header="Zoom _In" InputGesture="Ctrl+OemPlus" Click="OnZoomIn" />
+        <MenuItem Header="Zoom _Out" InputGesture="Ctrl+OemMinus" Click="OnZoomOut" />
+        <MenuItem Header="_Actual Size (100%)" InputGesture="Ctrl+D0" Click="OnZoomActual" />
+        <MenuItem Header="_Fit to Window" InputGesture="Ctrl+D9" Click="OnZoomFit" />
+        <Separator />
+        <MenuItem Name="GridMenu" Header="Pixel _Grid" InputGesture="Ctrl+G" ToggleType="CheckBox" Click="OnToggleGrid" />
+        <MenuItem Name="LayersMenu" Header="_Layers Panel" InputGesture="Ctrl+L" ToggleType="CheckBox" Click="OnToggleLayers" />
+      </MenuItem>
+      <MenuItem Header="_Image">
+        <MenuItem Header="Flip _Horizontal" Click="OnFlipH" />
+        <MenuItem Header="Flip _Vertical" Click="OnFlipV" />
+        <MenuItem Header="Rotate 90° _Right" InputGesture="Ctrl+R" Click="OnRotateRight" />
+        <MenuItem Header="Rotate 90° _Left" InputGesture="Ctrl+Shift+R" Click="OnRotateLeft" />
+        <MenuItem Header="Rotate _180°" Click="OnRotate180" />
+        <Separator />
+        <MenuItem Header="_Crop to Selection" InputGesture="Ctrl+Shift+X" Click="OnCrop" />
+        <MenuItem Header="Image _Size..." InputGesture="Ctrl+E" Click="OnResize" />
+        <Separator />
+        <MenuItem Header="Replace C_olor..." InputGesture="Ctrl+H" Click="OnReplaceColor" />
+        <MenuItem Header="Make Color _Transparent..." InputGesture="Ctrl+T" Click="OnMakeTransparent" />
+        <Separator />
+        <MenuItem Header="Cl_ear Image" InputGesture="Ctrl+Shift+N" Click="OnClearImage" />
+      </MenuItem>
+      <MenuItem Header="_Layers">
+        <MenuItem Header="_New Layer" InputGesture="Ctrl+Shift+L" Click="OnLayerAdd" />
+        <MenuItem Header="_Duplicate Layer" Click="OnLayerDuplicate" />
+        <MenuItem Header="De_lete Layer" Click="OnLayerDelete" />
+        <Separator />
+        <MenuItem Header="Move _Up" Click="OnLayerUp" />
+        <MenuItem Header="Move Do_wn" Click="OnLayerDown" />
+        <MenuItem Header="_Merge Down" Click="OnLayerMerge" />
+        <MenuItem Header="_Flatten Image" Click="OnLayerFlatten" />
+      </MenuItem>
+      <MenuItem Header="_Colors">
+        <MenuItem Header="Edit _Primary Color..." Click="OnEditPrimary" />
+        <MenuItem Header="Edit _Secondary Color..." Click="OnEditSecondary" />
+        <MenuItem Header="S_wap Colors" InputGesture="X" Click="OnSwapColors" />
+        <MenuItem Header="Reset to _Black / White" InputGesture="D" Click="OnResetColors" />
+      </MenuItem>
+      <MenuItem Header="_Help">
+        <MenuItem Header="_Keyboard Shortcuts" InputGesture="F1" Click="OnShortcuts" />
+        <MenuItem Header="_About EasyGred" Click="OnAbout" />
+      </MenuItem>
+    </Menu>
+
+    <!-- Status bar -->
+    <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,100,110,110,70">
+      <Border Classes="statuscell" Grid.Column="0"><TextBlock Name="HintText" TextTrimming="CharacterEllipsis" /></Border>
+      <Border Classes="statuscell" Grid.Column="1"><TextBlock Name="PosText" /></Border>
+      <Border Classes="statuscell" Grid.Column="2"><TextBlock Name="SizeText" /></Border>
+      <Border Classes="statuscell" Grid.Column="3"><TextBlock Name="SelText" /></Border>
+      <Border Classes="statuscell" Grid.Column="4" Margin="2"><TextBlock Name="ZoomText" /></Border>
+    </Grid>
+
+    <!-- Colour box -->
+    <Border DockPanel.Dock="Bottom" Padding="4,4,4,2" BorderBrush="White" BorderThickness="0,1,0,0">
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <Panel Width="46" Height="42" ToolTip.Tip="Primary (left click) / secondary (right click). Click to edit.">
+          <c:Swatch Name="SecondarySwatch" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,12,0,0" Cursor="Hand" />
+          <c:Swatch Name="PrimarySwatch" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0" Cursor="Hand" />
+        </Panel>
+        <Button Classes="small" Content="⇄" VerticalAlignment="Center" ToolTip.Tip="Swap colors (X)" Click="OnSwapColors" />
+        <c:Swatch Name="TransparentSwatch" Width="22" Height="42" Color="0" Cursor="Hand"
+                  ToolTip.Tip="Transparent. Left: primary, right: secondary" />
+        <UniformGrid Name="PaletteGrid" Rows="2" VerticalAlignment="Center" />
+        <Button Content="Edit Colors..." VerticalAlignment="Center" Click="OnEditPrimary" />
+        <StackPanel VerticalAlignment="Center" Margin="6,0,0,0">
+          <TextBlock Name="PrimaryHex" FontFamily="DejaVu Sans Mono, Consolas, monospace" />
+          <TextBlock Name="SecondaryHex" FontFamily="DejaVu Sans Mono, Consolas, monospace" Foreground="#404040" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- Tool box -->
+    <StackPanel DockPanel.Dock="Left" Width="128" Margin="2,4,2,2">
+      <UniformGrid Name="ToolGrid" Columns="2" HorizontalAlignment="Center" />
+      <Border Classes="group" Margin="2,6,2,2">
+        <StackPanel Name="OptionsPanel" Spacing="4" />
+      </Border>
+    </StackPanel>
+
+    <!-- Layers -->
+    <Border DockPanel.Dock="Right" Name="LayersPanel" Width="200" IsVisible="False" Padding="4">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="caption" Text="Layers" />
+        <WrapPanel DockPanel.Dock="Bottom" Margin="0,4,0,0">
+          <Button Classes="small" Content="New" ToolTip.Tip="New layer" Click="OnLayerAdd" Margin="1" />
+          <Button Classes="small" Content="Dup" ToolTip.Tip="Duplicate layer" Click="OnLayerDuplicate" Margin="1" />
+          <Button Classes="small" Content="Del" ToolTip.Tip="Delete layer" Click="OnLayerDelete" Margin="1" />
+          <Button Classes="small" Content="▲" ToolTip.Tip="Move up" Click="OnLayerUp" Margin="1" />
+          <Button Classes="small" Content="▼" ToolTip.Tip="Move down" Click="OnLayerDown" Margin="1" />
+          <Button Classes="small" Content="Merge" ToolTip.Tip="Merge down" Click="OnLayerMerge" Margin="1" />
+        </WrapPanel>
+        <TextBox DockPanel.Dock="Bottom" Name="LayerName" Watermark="Layer name" Margin="0,4,0,0" />
+        <ListBox Name="LayerList" />
+      </DockPanel>
+    </Border>
+
+    <!-- Canvas -->
+    <Border BorderBrush="#808080" BorderThickness="1,1,0,0">
+      <Border BorderBrush="Black" BorderThickness="1,1,0,0" Background="#808080">
+        <ScrollViewer Name="Scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+          <Grid Name="CanvasHost" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
+            <c:CanvasView Name="View" />
+            <Canvas Name="Overlay" />
+          </Grid>
+        </ScrollViewer>
+      </Border>
+    </Border>
+  </DockPanel>
+</Window>

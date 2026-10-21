@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\EasyGred.ico</ApplicationIcon>
+    <AssemblyName>EasyGred</AssemblyName>
+    <RootNamespace>EasyGred</RootNamespace>
+    <Product>EasyGred - Easy Graphix Edit</Product>
+    <Version>1.0.0</Version>
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+
+    <!-- Portable: one self-contained executable, native libraries sit next to it (no extraction to temp/home). -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\EasyGred.ico" />
+    <AvaloniaResource Include="Assets\icons\EasyGred-256x256.png" />
+  </ItemGroup>
+
+  <!-- Extras copied next to the executable in the Linux portable build. -->
+  <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('linux'))">
+    <None Include="..\..\packaging\linux\*.sh" CopyToPublishDirectory="PreserveNewest" LinkBase="." />
+    <None Include="Assets\icons\EasyGred-256x256.png" Link="EasyGred.png" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyGred.Core\EasyGred.Core.csproj" />
+  </ItemGroup>
+
+</Project>

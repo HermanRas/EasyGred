@@ -1,0 +1,9 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EasyGred.App"
+             RequestedThemeVariant="Light">
+  <Application.Styles>
+    <SimpleTheme />
+    <StyleInclude Source="avares://EasyGred/Styles/Retro.axaml" />
+  </Application.Styles>
+</Application>
