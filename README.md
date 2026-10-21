@@ -39,8 +39,17 @@ Builds are self-contained: no .NET install, no installer, no registry, no settin
 | Windows x64 | `EasyGred-<ver>-win-x64\EasyGred.exe` |
 | Linux x64 | `EasyGred-<ver>-linux-x64/EasyGred` (or `easygred.sh`) |
 
-Linux extras in the build folder:
-- `install-desktop-entry.sh` — *optional*, adds EasyGred to your app menu / "Open With" by writing one file to `~/.local/share/applications/`.
+### Installing on Linux (optional)
+
+To add EasyGred to the application menu (Linux Mint, Ubuntu, etc.) and get an `easygred` command, run the installer from the unzipped folder:
+
+```bash
+./install.sh                  # just you, no sudo: ~/.local/opt/easygred + menu entry
+sudo ./install.sh --system    # all users: /opt/easygred, /usr/local/bin/easygred
+./install.sh --uninstall      # remove again (add --system for a system-wide install)
+```
+
+EasyGred then appears under **Graphics** in the menu and in "Open With" for PNG, BMP, JPG and WebP files.
 
 ## Building
 
@@ -69,7 +78,7 @@ src/EasyGred/          Avalonia desktop app
   Styles/Retro.axaml   the gray bevelled look
   Assets/              app icon (.ico for Windows, PNG sizes for Linux)
 tests/EasyGred.Tests/  xUnit tests for the core engine
-packaging/linux/       launcher + optional desktop-entry script shipped with the Linux build
+packaging/linux/       launcher + install.sh (menu entry, icons) shipped with the Linux build
 art/                   source artwork for the icon (not shipped)
 docs/                  README screenshot
 ```

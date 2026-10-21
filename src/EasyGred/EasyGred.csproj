@@ -37,7 +37,7 @@
   <!-- Extras copied next to the executable in the Linux portable build. -->
   <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('linux'))">
     <None Include="..\..\packaging\linux\*.sh" CopyToPublishDirectory="PreserveNewest" LinkBase="." />
-    <None Include="Assets\icons\EasyGred-256x256.png" Link="EasyGred.png" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="Assets\icons\*.png" Link="icons\%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
