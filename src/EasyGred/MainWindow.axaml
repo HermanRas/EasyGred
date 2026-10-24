@@ -130,9 +130,11 @@
     <!-- Canvas -->
     <Border BorderBrush="#808080" BorderThickness="1,1,0,0">
       <Border BorderBrush="Black" BorderThickness="1,1,0,0" Background="#808080">
-        <ScrollViewer Name="Scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <!-- No scroll-on-focus: focusing the canvas on click would otherwise jump back to the top-left. -->
+        <ScrollViewer Name="Scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      BringIntoViewOnFocusChange="False">
           <Grid Name="CanvasHost" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
-            <c:CanvasView Name="View" />
+            <c:CanvasView Name="View" HorizontalAlignment="Left" VerticalAlignment="Top" />
             <Canvas Name="Overlay" />
           </Grid>
         </ScrollViewer>

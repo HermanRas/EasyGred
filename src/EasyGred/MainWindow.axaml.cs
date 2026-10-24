@@ -57,6 +57,15 @@ public partial class MainWindow : Window
         View.ZoomRequested += (z, docPoint) => SetZoom(z, docPoint);
         View.PickedColor += () => View.Tool = _toolBeforePicker;
 
+        var grips = new CanvasGrips(View);
+        grips.Previewing += (w, h) => SizeText.Text = $"{w} × {h}";
+        grips.ResizeRequested += (w, h) =>
+        {
+            CommitText();
+            View.ResizeCanvas(w, h, centre: false);
+        };
+        CanvasHost.Children.Insert(1, grips);
+
         PrimarySwatch.PointerPressed += async (_, _) => await EditColor(primary: true);
         SecondarySwatch.PointerPressed += async (_, _) => await EditColor(primary: false);
         TransparentSwatch.PointerPressed += (_, e) => PickSwatch(Px.Transparent, e);

@@ -12,7 +12,7 @@
     <AssemblyName>EasyGred</AssemblyName>
     <RootNamespace>EasyGred</RootNamespace>
     <Product>EasyGred - Easy Graphix Edit</Product>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 
     <!-- Portable: one self-contained executable, native libraries sit next to it (no extraction to temp/home). -->
